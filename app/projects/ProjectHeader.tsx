@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/app/components/Header";
 import { Clock, Filter, Grid3X3, List, Share2, Table } from "lucide-react";
 import React, { useState } from "react";
 

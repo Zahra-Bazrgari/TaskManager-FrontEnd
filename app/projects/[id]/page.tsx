@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 import ProjectHeader from "../ProjectHeader";
 import Board from "../BoardView";
 import List from "../ListView";
-import TimeLine from '../TimeLineVew';
+import TimeLine from "../TimeLineVew";
+import Table from '../TableView';
+
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -36,6 +38,10 @@ const Project = ({ params }: Props) => {
 
       {activeTab == "Timeline" && (
         <TimeLine id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
+      )}
+
+      {activeTab == "Table" && (
+        <Table id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
     </div>
   );

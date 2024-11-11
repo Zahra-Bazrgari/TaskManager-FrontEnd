@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, Moon, Search, Settings, Sun } from "lucide-react";
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@/app/redux/redux";
+import { useAppDispatch, useAppSelector } from "@/redux/redux";
 import { setIsDarkMode, setIsSidebarCollapsed } from "@/state";
 
 const Navbar = () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
         )}
 
         <div className="flext relative h-min w-[200px]">
-          <Search className="absolute left-[4px] top-1/2 mr-2 h-5 w-5 -translate-y-1/2 transform cursor-pointer dark:bg-white" />
+          <Search className="absolute left-[4px] top-1/2 mr-2 h-5 w-5 -translate-y-1/2 transform cursor-pointer dark:text-white" />
           <input
             className="placeholder-gra w-full rounded border-none bg-gray-100 p-2 pl-8 focus:border-transparent focus:outline-none dark:bg-gray-700 dark:text-white dark:placeholder-white"
             type="search"

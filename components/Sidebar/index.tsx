@@ -1,6 +1,7 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/redux";
+import { useAppDispatch, useAppSelector } from "@/redux/redux";
 import { setIsSidebarCollapsed } from "@/state";
+import { useGetProjectsQuery } from '@/state/api';
 import {
   AlertCircle,
   AlertOctagon,
@@ -36,6 +37,8 @@ const Sidebar = () => {
     { icon: User, label: "Users", href: "/users" },
     { icon: Users, label: "Teams", href: "/teams" },
   ];
+
+  const {data: projects} = useGetProjectsQuery()
 
   const dispath = useAppDispatch();
   const isSidebarCollapsed = useAppSelector(
@@ -102,6 +105,10 @@ const Sidebar = () => {
           )}
         </button>
           {/* projects list */}
+          {showProjects && projects?.map((project) => (
+            <SidebarLink key={project.id} icon={Briefcase} label={project.name} href={`/projects/${project.id}`} />
+          ))}
+
 
 
           {/* priority links */}

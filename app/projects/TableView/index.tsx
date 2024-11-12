@@ -1,5 +1,5 @@
 import Header from "@/app/components/Header";
-import { dataGridCalssNames, dataGridSxStyles } from "@/app/functions/utils/utils";
+import { dataGridClassNames, dataGridSxStyles } from "@/app/functions/utils/utils";
 import { useAppSelector } from "@/app/functions/redux/redux";
 import { useGetTasksQuery } from "@/app/functions/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -95,7 +95,7 @@ const Table = ({ id, setIsModalNewTaskOpen }: Props) => {
       <DataGrid
         rows={tasks || []}
         columns={columns}
-        className={dataGridCalssNames}
+        className={dataGridClassNames}
         sx={dataGridSxStyles(isDarkMode)}
       />
     </div>

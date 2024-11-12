@@ -43,7 +43,7 @@ const Timeline = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError || !projects) return <div>An error occurred while fetching projects</div>;
+  if (isError || !projects) return <div>An error occurred while fetching data</div>;
 
   return (
     <div className="max-w-full p-8">

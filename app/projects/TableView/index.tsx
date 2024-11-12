@@ -1,7 +1,7 @@
 import Header from "@/app/components/Header";
-import { dataGridCalssNames, dataGridSxStyles } from "@/utils/utils";
-import { useAppSelector } from "@/redux/redux";
-import { useGetTasksQuery } from "@/state/api";
+import { dataGridCalssNames, dataGridSxStyles } from "@/app/functions/utils/utils";
+import { useAppSelector } from "@/app/functions/redux/redux";
+import { useGetTasksQuery } from "@/app/functions/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React from "react";
 
@@ -79,7 +79,18 @@ const Table = ({ id, setIsModalNewTaskOpen }: Props) => {
   return (
     <div className="h-[540px] w-full px-4 pb-8 xl:px-6">
       <div className="pt-5">
-        <Header name="Table" isSmallText />
+        <Header
+          name="Table"
+          isSmallText
+          buttonComponent={
+            <button
+              className="flex items-center bg-blue-primary px-3 py-2 text-white hover:bg-blue-600 rounded"
+              onClick={() => setIsModalNewTaskOpen(true)}
+            >
+              Add task
+            </button>
+          }
+        />
       </div>
       <DataGrid
         rows={tasks || []}

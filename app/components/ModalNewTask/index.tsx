@@ -1,15 +1,19 @@
-import Modal from "@/app/components/Modal";
-import { Priority, Status, useCreateTaskMutation } from "@/app/functions/state/api";
-import { formatISO } from "date-fns";
 import React, { useState } from "react";
+import { formatISO } from "date-fns";
+import {
+  Priority,
+  Status,
+  useCreateTaskMutation,
+} from "@/app/functions/state/api";
+import Modal from "../Modal";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  id: number;
+  id?: string | null;
 };
 
-const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
+const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   const [createTask, { isLoading }] = useCreateTaskMutation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,9 +24,10 @@ const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
   const [dueDate, setDueDate] = useState("");
   const [authorUserId, setAuthorUserId] = useState("");
   const [assignedUserId, setAssignedUserId] = useState("");
+  const [projectId, setProjectId] = useState("");
 
   const handleSubmit = async () => {
-    if (!title || !authorUserId) return;
+    if (!title || !authorUserId || !(id !== null || projectId)) return;
 
     const formattedStartDate = formatISO(new Date(startDate), {
       representation: "complete",
@@ -41,12 +46,12 @@ const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
       dueDate: formattedDueDate,
       authorUserId: parseInt(authorUserId),
       assignedUserId: parseInt(assignedUserId),
-      projectId: id,
+      projectId: id !== null ? Number(id) : Number(projectId),
     });
   };
 
   const isFormValid = () => {
-    return title && authorUserId;
+    return title && authorUserId && !(id !== null || projectId);
   };
 
   const selectStyles =
@@ -77,7 +82,6 @@ const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-2">
           <select
             className={selectStyles}
@@ -107,11 +111,10 @@ const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
             <option value={Priority.Backlog}>Backlog</option>
           </select>
         </div>
-
         <input
           type="text"
           className={inputStyles}
-          placeholder="Tags (comma seperated)"
+          placeholder="Tags (comma separated)"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
@@ -130,7 +133,6 @@ const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
             onChange={(e) => setDueDate(e.target.value)}
           />
         </div>
-
         <input
           type="text"
           className={inputStyles}
@@ -145,7 +147,15 @@ const ModalNewTask = ({ isOpen, onClose, id }: Props) => {
           value={assignedUserId}
           onChange={(e) => setAssignedUserId(e.target.value)}
         />
-
+        {id === null && (
+          <input
+            type="text"
+            className={inputStyles}
+            placeholder="ProjectId"
+            value={projectId}
+            onChange={(e) => setProjectId(e.target.value)}
+          />
+        )}
         <button
           type="submit"
           className={`focus-offset-2 mt-4 flex w-full justify-center rounded-md border border-transparent bg-blue-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 ${
